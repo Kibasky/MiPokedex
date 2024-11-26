@@ -5,13 +5,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mipokedex.R
+import com.example.mipokedex.adapters.PokedexAdapter
+import com.example.mipokedex.data.entities.Pokemon
 import com.example.mipokedex.databinding.ActivityListBinding
 import com.example.mipokedex.databinding.ActivityMainBinding
 
 class ListActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityListBinding
+
+    lateinit var adapter: PokedexAdapter
+
+    //podemos poner emptylist y funciona escribiendo en render los datos hardcodeados
+    var pokedexList: List<Pokemon> = listOf(Pokemon(1, "3", "Charizard", "Fuego"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,5 +33,13 @@ class ListActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+    adapter = PokedexAdapter(pokedexList) { position ->
+        val pokedex = pokedexList[position]
+        //navigateToDetail(pokedex)
+    }
+
+    binding.recyclerView.adapter = adapter
+    binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
     }
 }
