@@ -18,8 +18,11 @@ class ListActivity : AppCompatActivity() {
 
     lateinit var adapter: PokedexAdapter
 
-    //podemos poner emptylist y funciona escribiendo en render los datos hardcodeados
-    var pokedexList: List<Pokemon> = listOf(Pokemon(1, "3", "Charizard", "Fuego"))
+    // podemos hardcodear como = listOf(Pokemon(1, "25", "Pikachu", "Eléctrico")),
+    // o con listOf(Pokemon(1, "", "", "")) + render
+    var pokedexList: List<Pokemon> = listOf(Pokemon(0, "03", "Charizard", "Fuego"),
+                                            Pokemon(1, "25", "Pikachu", "Eléctrico"),
+                                            Pokemon(2, "151", "Mew", "Psíquico"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

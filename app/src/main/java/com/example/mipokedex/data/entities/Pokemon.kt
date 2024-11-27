@@ -1,5 +1,7 @@
 package com.example.mipokedex.data.entities
 
+import android.media.Image
+
 
 class Pokemon (
     val id: Int,

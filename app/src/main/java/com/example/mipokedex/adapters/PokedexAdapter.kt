@@ -35,6 +35,7 @@ class PokedexAdapter (var items: List<Pokemon>, val onItemClick: (Int) -> Unit) 
 class ViewHolder(val binding: ItemPokedexBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun render(pokemon: Pokemon) {
+        // estos datos se pueden hardcodear como = "String"
         binding.numberPokemon.text = pokemon.number
         binding.namePokemon.text = pokemon.name
         binding.typePokemon.text = pokemon.type
