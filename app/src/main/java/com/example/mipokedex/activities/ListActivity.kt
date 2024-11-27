@@ -1,16 +1,22 @@
 package com.example.mipokedex.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.mipokedex.R
 import com.example.mipokedex.adapters.PokedexAdapter
 import com.example.mipokedex.data.entities.Pokemon
+import com.example.mipokedex.data.providers.RetrofitProvider
+import com.example.mipokedex.data.providers.RetrofitProvider.Companion.getRetrofit
 import com.example.mipokedex.databinding.ActivityListBinding
-import com.example.mipokedex.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+
 
 class ListActivity : AppCompatActivity() {
 
@@ -46,6 +52,28 @@ class ListActivity : AppCompatActivity() {
 
     binding.recyclerView.adapter = adapter
     binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
+
+        // A P I
+        getPokemons()
+
+
+    }
+
+    fun getPokemons() {
+        val service = RetrofitProvider.getRetrofit()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val result = service.getAllPokemon()
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    pokedexList = result.results
+                    adapter.updateItems(pokedexList)
+                }
+            } catch (e: Exception) {
+                Log.e("API", e.stackTraceToString())
+            }
+        }
     }
 
     /*// función para mostrar 151 pkm sin API
@@ -56,4 +84,5 @@ class ListActivity : AppCompatActivity() {
         }
         return listOfPokemon
     }*/
+
 }
