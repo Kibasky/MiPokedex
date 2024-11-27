@@ -22,6 +22,7 @@ class PokedexAdapter (var items: List<Pokemon>, val onItemClick: (Int) -> Unit) 
         }
     }
 
+    // override fun getItemCount(): Int = items.size
     override fun getItemCount(): Int {
         return items.size
     }

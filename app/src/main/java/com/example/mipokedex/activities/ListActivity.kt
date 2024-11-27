@@ -23,6 +23,8 @@ class ListActivity : AppCompatActivity() {
     var pokedexList: List<Pokemon> = listOf(Pokemon(0, "03", "Charizard", "Fuego"),
                                             Pokemon(1, "25", "Pikachu", "Eléctrico"),
                                             Pokemon(2, "151", "Mew", "Psíquico"))
+    /*// funcion 151 pkm
+    var pokedexList: List<Pokemon> = getPlaceholderPokemons()*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,4 +47,13 @@ class ListActivity : AppCompatActivity() {
     binding.recyclerView.adapter = adapter
     binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
     }
+
+    /*// función para mostrar 151 pkm sin API
+    fun getPlaceholderPokemons() : List<Pokemon> {
+        val listOfPokemon = mutableListOf<Pokemon>()
+        for (i in 1..151) {
+            listOfPokemon.add(Pokemon(i, i.toString(), "Pokemon $i", "Type"))
+        }
+        return listOfPokemon
+    }*/
 }
