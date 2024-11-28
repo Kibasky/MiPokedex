@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mipokedex.data.entities.Pokemon
+import com.example.mipokedex.data.entities.PokemonStats
+import com.example.mipokedex.data.entities.Stats
 import com.example.mipokedex.databinding.ItemPokedexBinding
 
 class PokedexAdapter (var items: List<Pokemon>, val onItemClick: (Int) -> Unit) : RecyclerView.Adapter<ViewHolder>() {
@@ -16,7 +18,9 @@ class PokedexAdapter (var items: List<Pokemon>, val onItemClick: (Int) -> Unit) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //holder.render(items[position])
         val pokemon = items[position]
+        //val stats = items[position]
         holder.render(pokemon)
+        //holder.render2(stats)
         holder.itemView.setOnClickListener {
             onItemClick(position)
         }
@@ -37,9 +41,16 @@ class ViewHolder(val binding: ItemPokedexBinding) : RecyclerView.ViewHolder(bind
 
     fun render(pokemon: Pokemon) {
         // estos datos se pueden hardcodear como = "String"
-        binding.numberPokemon.text = pokemon.number
         binding.namePokemon.text = pokemon.name
-        binding.typePokemon.text = pokemon.type
+        //binding.numberPokemon.text = pokemon.stats.
+
+        //binding.numberPokemon.text = pokemon.number
+        //binding.typePokemon.text = pokemon.type
         //Picasso.get().load(superhero.image.url).into(binding.avatarImageView)
     }
+    fun render2(stats: Stats) {
+        // estos datos se pueden hardcodear como = "String"
+        binding.numberPokemon.text = stats.number
+        //binding.typePokemon.text = stats.types
+        }
 }

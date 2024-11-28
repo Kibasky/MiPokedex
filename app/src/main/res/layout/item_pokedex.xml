@@ -41,7 +41,7 @@
                     android:id="@+id/numberPokemon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Number"
+                    tools:text="Number"
                     android:textSize="25dp"
                     />
 
@@ -49,7 +49,7 @@
                     android:id="@+id/namePokemon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    tools:text="Name"
                     android:textSize="25dp"
                     />
 
@@ -57,7 +57,7 @@
                     android:id="@+id/typePokemon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Type"
+                    tools:text="Type"
                     android:textSize="25dp"
                     />
 

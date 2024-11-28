@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mipokedex.adapters.PokedexAdapter
 import com.example.mipokedex.data.entities.Pokemon
+import com.example.mipokedex.data.entities.Stats
 import com.example.mipokedex.data.providers.RetrofitProvider
 import com.example.mipokedex.data.providers.RetrofitProvider.Companion.getRetrofit
 import com.example.mipokedex.databinding.ActivityListBinding
@@ -23,13 +24,16 @@ class ListActivity : AppCompatActivity() {
     lateinit var binding: ActivityListBinding
 
     lateinit var adapter: PokedexAdapter
+    lateinit var adapter2: PokedexAdapter
 
-    // podemos hardcodear como = listOf(Pokemon(1, "25", "Pikachu", "Eléctrico")),
-    // o con listOf(Pokemon(1, "", "", "")) + render
+    var pokedexList: List<Pokemon> = emptyList()
+    var pokedexStats: List<Stats> = emptyList()
+
+    /*// hardcodear contenido del item:
     var pokedexList: List<Pokemon> = listOf(Pokemon(0, "03", "Charizard", "Fuego"),
                                             Pokemon(1, "25", "Pikachu", "Eléctrico"),
                                             Pokemon(2, "151", "Mew", "Psíquico"))
-    /*// funcion 151 pkm
+    // funcion 151 pkm
     var pokedexList: List<Pokemon> = getPlaceholderPokemons()*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,18 +49,22 @@ class ListActivity : AppCompatActivity() {
             insets
         }
 
-    adapter = PokedexAdapter(pokedexList) { position ->
-        val pokedex = pokedexList[position]
-        //navigateToDetail(pokedex)
-    }
+        adapter = PokedexAdapter(pokedexList) { position ->
+            val pokedex = pokedexList[position]
+            //navigateToDetail(pokedex)
+        }
 
-    binding.recyclerView.adapter = adapter
-    binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
+        adapter2 = PokedexAdapter(pokedexList) { position ->
+            val pokedex = pokedexStats[position]
+            //navigateToDetail(pokedex)
+        }
+
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
 
         // A P I
         getPokemons()
-
-
+        getPokemonStats()
     }
 
     fun getPokemons() {
@@ -65,9 +73,28 @@ class ListActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val result = service.getAllPokemon()
+                //val stats = service.getPokemonStats()
 
                 CoroutineScope(Dispatchers.Main).launch {
                     pokedexList = result.results
+                    //pokedexList = stats.number
+                    adapter.updateItems(pokedexList)
+                }
+            } catch (e: Exception) {
+                Log.e("API", e.stackTraceToString())
+            }
+        }
+    }
+
+    fun getPokemonStats() {
+        val service = RetrofitProvider.getRetrofit()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val stats = service.getPokemonStats()
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    pokedexStats = stats.stats
                     adapter.updateItems(pokedexList)
                 }
             } catch (e: Exception) {
