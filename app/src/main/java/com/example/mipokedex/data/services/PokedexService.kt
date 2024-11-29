@@ -8,13 +8,13 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface PokedexService {
-    @GET("pokemon?limit=100000&offset=0")
+    @GET("pokemon?limit=1500&offset=0")
     suspend fun getAllPokemon() : PokemonResponse
 
 /*    @GET("pokemon/{name}")
     suspend fun getPokemon(@Path("name") query: String) : Pokemon*/
 
     @GET("pokemon/{name}")
-    suspend fun getPokemonStats() : PokemonStats
+    suspend fun getPokemonStats(@Path("name") name: String) : Pokemon
 
 }

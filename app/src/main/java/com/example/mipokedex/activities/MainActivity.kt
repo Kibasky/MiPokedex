@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-   /* private fun navigateToDetail() {
+/*
+    private fun navigateToDetail() {
         val intent = Intent(this, DetailActivity::class.java)
         //intent.putExtra("horoscope_id", horoscope.id)
         startActivity(intent)

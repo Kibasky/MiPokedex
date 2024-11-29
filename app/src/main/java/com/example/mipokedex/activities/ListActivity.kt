@@ -1,5 +1,6 @@
 package com.example.mipokedex.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -9,10 +10,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mipokedex.adapters.PokedexAdapter
 import com.example.mipokedex.data.entities.Pokemon
-import com.example.mipokedex.data.entities.Stats
 import com.example.mipokedex.data.providers.RetrofitProvider
 import com.example.mipokedex.data.providers.RetrofitProvider.Companion.getRetrofit
 import com.example.mipokedex.databinding.ActivityListBinding
+import com.example.mipokedex.databinding.ItemPokedexBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,10 +25,8 @@ class ListActivity : AppCompatActivity() {
     lateinit var binding: ActivityListBinding
 
     lateinit var adapter: PokedexAdapter
-    lateinit var adapter2: PokedexAdapter
 
-    var pokedexList: List<Pokemon> = emptyList()
-    var pokedexStats: List<Stats> = emptyList()
+    var pokedexList: MutableList<Pokemon> = mutableListOf()
 
     /*// hardcodear contenido del item:
     var pokedexList: List<Pokemon> = listOf(Pokemon(0, "03", "Charizard", "Fuego"),
@@ -51,12 +50,7 @@ class ListActivity : AppCompatActivity() {
 
         adapter = PokedexAdapter(pokedexList) { position ->
             val pokedex = pokedexList[position]
-            //navigateToDetail(pokedex)
-        }
-
-        adapter2 = PokedexAdapter(pokedexList) { position ->
-            val pokedex = pokedexStats[position]
-            //navigateToDetail(pokedex)
+            navigateToDetail(pokedex)
         }
 
         binding.recyclerView.adapter = adapter
@@ -64,38 +58,29 @@ class ListActivity : AppCompatActivity() {
 
         // A P I
         getPokemons()
-        getPokemonStats()
     }
 
     fun getPokemons() {
         val service = RetrofitProvider.getRetrofit()
-
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                //var binding: ItemPokedexBinding
                 val result = service.getAllPokemon()
+                //val pokemon = pokedexList[position]
+                //val pokemonData = service.getPokemonStats(pokemon.name)
+
                 //val stats = service.getPokemonStats()
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    pokedexList = result.results
-                    //pokedexList = stats.number
+                    pokedexList = result.results.toMutableList()
                     adapter.updateItems(pokedexList)
-                }
-            } catch (e: Exception) {
-                Log.e("API", e.stackTraceToString())
-            }
-        }
-    }
+                    //pokedexList[position] = pokemonData
+                    //adapter.notifyItemChanged(position)
 
-    fun getPokemonStats() {
-        val service = RetrofitProvider.getRetrofit()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val stats = service.getPokemonStats()
-
-                CoroutineScope(Dispatchers.Main).launch {
-                    pokedexStats = stats.stats
-                    adapter.updateItems(pokedexList)
+/*
+                    for (index in pokedexList.indices) {
+                        getPokemonStats(index)
+                    }*/
                 }
             } catch (e: Exception) {
                 Log.e("API", e.stackTraceToString())
@@ -112,4 +97,10 @@ class ListActivity : AppCompatActivity() {
         return listOfPokemon
     }*/
 
+
+    private fun navigateToDetail(pokemon: Pokemon) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("POKEMON_NAME", pokemon.name)
+        startActivity(intent)
+    }
 }
