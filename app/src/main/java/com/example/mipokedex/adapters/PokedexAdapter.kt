@@ -46,7 +46,7 @@ class ViewHolder(val binding: ItemPokedexBinding) : RecyclerView.ViewHolder(bind
 
     fun render(pokemon: Pokemon) {
         if (pokemon.number == null) {
-            binding.namePokemon.text = pokemon.name
+            binding.namePokemon.text = pokemon.name.replaceFirstChar { it.uppercaseChar() }
             binding.numberPokemon.text = (adapterPosition + 1).toString()
             getPokemonStats(pokemon.name)
         } else {

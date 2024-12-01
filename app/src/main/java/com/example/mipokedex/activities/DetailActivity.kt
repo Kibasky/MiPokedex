@@ -56,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
-        binding.nameTextView.text = pokemon.name
+        binding.nameTextView.text = pokemon.name.replaceFirstChar { it.uppercaseChar() }
         Picasso.get().load(pokemon.sprites?.frontDefault).into(binding.pokemonImageView)
     }
 }

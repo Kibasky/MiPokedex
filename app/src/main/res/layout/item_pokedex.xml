@@ -21,41 +21,35 @@
             android:orientation="horizontal"
             >
 
-            <ImageView
-                android:id="@+id/imagePokemon"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"
-                />
-
             <LinearLayout
-                android:layout_width="220dp"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="10dp"
-                android:layout_margin="15dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:layout_margin="10dp"
                 >
 
                 <TextView
                     android:id="@+id/numberPokemon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Number"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    tools:text="999"
                     android:textSize="25dp"
                     />
 
                 <TextView
                     android:id="@+id/namePokemon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
                     tools:text="Name"
                     android:textSize="25dp"
                     />
 
                 <LinearLayout
                     android:layout_width="200dp"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:layout_gravity="center_vertical"
 
@@ -64,15 +58,16 @@
                     <ImageView
                         android:id="@+id/typeSlot1"
                         android:layout_width="90dp"
-                        android:layout_height="25dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="10dp"
+                        tools:src="@drawable/ic_08_ghost"
                         />
 
                     <ImageView
                         android:id="@+id/typeSlot2"
                         android:layout_width="90dp"
-                        android:layout_height="25dp"
-
+                        android:layout_height="30dp"
+                        tools:src="@drawable/ic_16_dragon"
                         />
 
                     <!--<TextView
@@ -86,6 +81,16 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/imagePokemon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_rayquaza"
+                />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
